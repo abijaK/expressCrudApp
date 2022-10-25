@@ -34,3 +34,11 @@ exports.updateStudent = (req, res, next) => {
             if (result) res.redirect('/');
         });
 };
+
+exports.deleteStudent = (req, res, next) => {
+    const id = parseInt(req.params.id);
+    pool.query(`DELETE FROM etudiants WHERE id=?`, [id], (error, result) => {
+        if (error) next(error);
+        if (result) res.redirect('/');
+    });
+};
