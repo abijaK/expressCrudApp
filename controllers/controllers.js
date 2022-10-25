@@ -7,6 +7,14 @@ exports.getAllStudents = (req, res, next) => {
     });
 };
 
+exports.getOneStudent = (req, res, next) => {
+    const id = parseInt(req.params.id);
+    pool.query(`SELECT * FROM etudiants WHERE id = ?`, [id], (error, result) => {
+        if (error) next(error);
+        res.render('editStudent', { student: result?.rows[0] });
+    });
+};
+
 exports.createStudent = (req, res, next) => {
     const { nom, genre, adresse } = req.body;
     pool.query(`INSERT INTO etudiants (nom, genre, adresse) VALUES (?, ?, ?)`,
