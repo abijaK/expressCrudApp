@@ -4,7 +4,7 @@ const path = require('path');
 
 const routes = require('./routes/students.routes');
 
-const PORT = process.env.PORT || 8008;
+const PORT = 8008;
 
 const app = express();
 
