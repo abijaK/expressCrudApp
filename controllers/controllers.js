@@ -24,3 +24,13 @@ exports.createStudent = (req, res, next) => {
             if (result) res.redirect("/");
         });
 };
+
+exports.updateStudent = (req, res, next) => {
+    const id = parseInt(req.params.id);
+    const { nom, genre, adresse } = req.body;
+    pool.query(`UPDATE etudiants SET nom=?, genre=?, adresse=? WHERE id=?`,
+        [nom, genre, adresse, id], (error, result) => {
+            if (error) next(error);
+            if (result) res.redirect('/');
+        });
+};
