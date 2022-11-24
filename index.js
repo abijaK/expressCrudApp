@@ -1,20 +1,27 @@
-const app = require('express')();
-const ejs = require('ejs');
+require('dotenv').config();
+const express = require('express')
 const path = require('path');
-const port=5000;
 
-app.set('view engine', 'ejs')
-app.set('views', __dirname + '/views')
+const routes = require('./routes/students.routes');
 
-// app.set('/css', express.static(path.join(__dirname, './public/style')))
+const PORT = 8008;
 
-app.get("/", (req, res) => {
-    // res.send("Bonjour le monde...");
-    res.render("index");
-  });
+const app = express();
 
+//Middlewares
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: false }));
 
+//Engine template
+app.set('views', 'views');
+app.set('view engine', 'ejs');
 
-app.listen(port, () =>{
-    console.log(`Le serveur écoute sur le port : ${port}`);
+//Routes
+app.use(routes);
+
+//Server listening
+app.listen(PORT, (error) => {
+    if (error) console.log(error);
+
+    console.log(`Server running on ${PORT}`);
 })
